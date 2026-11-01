@@ -1,0 +1,3 @@
+...................                                                      [100%]
+- generated xml file: C:\Users\adity\Documents\CS611-Assignment-2\evidence\pytest.xml -
+19 passed in 14.31s

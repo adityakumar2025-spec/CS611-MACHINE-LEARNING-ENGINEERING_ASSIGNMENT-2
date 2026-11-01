@@ -1,0 +1,6 @@
+{
+  "final_asof": "2025-11-02",
+  "minimum_labels": 30,
+  "psi_reference": "training population; quantile bins; missing bin; 0.5 pseudocount",
+  "alert_thresholds": "PSI >=0.10 amber; >=0.25 red. Proposed governance choices."
+}

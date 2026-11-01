@@ -1,0 +1,12 @@
+*
+!Dockerfile
+!requirements.txt
+!src/
+!src/**
+!dags/
+!dags/**
+!scripts/
+!scripts/start-airflow.sh
+!data/
+!data/*.csv
+**/__pycache__/

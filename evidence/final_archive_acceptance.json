@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "phase": "final_archive_integration",
+  "zip": "C:\\Users\\adity\\Documents\\CS611-Assignment-2\\dist\\CS611_Task1_VALIDATED.zip",
+  "zip_sha256": "a75cf6a681c0881480e842751167fbcad0893e516e9f24d52df1eb551f8ae38e",
+  "extraction": "C:\\Users\\adity\\Documents\\CS611-Assignment-2\\acceptance_extract\\final_archive_integration_1793547164308843300",
+  "gates": {
+    "docker-compose build": "PASS",
+    "docker-compose up": "PASS",
+    "Airflow UI": "PASS: HTTP 200 login and healthy database/scheduler",
+    "DAG, repeat, cohort backfill and Airflow CLI backfill": "PASS",
+    "Runtime model/gold/charts generated and exported": "PASS"
+  },
+  "evidence": "C:\\Users\\adity\\Documents\\CS611-Assignment-2\\acceptance_extract\\final_archive_integration_1793547164308843300\\evidence\\docker_acceptance.json"
+}

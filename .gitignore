@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+inputs/
+data/
+datamart/
+model_bank/
+work/
+dist/
+milestones/
+acceptance_extract/
+*.log
+evidence/*extract*.txt
+evidence/clean_extraction_python.json
+evidence/assignment_*
+evidence/repository.json
+.env

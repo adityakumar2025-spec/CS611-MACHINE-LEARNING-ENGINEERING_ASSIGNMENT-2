@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "runs": 3,
+  "fingerprints": {
+    "gold_predictions": {
+      "rows": 4515,
+      "sha256": "a4803696841265a06670ec70c7a815bb180bf22645ccfe7dadaa43c4d7703af1"
+    },
+    "gold_monitoring_immediate": {
+      "rows": 9,
+      "sha256": "329034d986c6b146bb811b19c4c25938b8f26c7d4aead0bb46eaf54d71d5a8f7"
+    },
+    "gold_monitoring_delayed": {
+      "rows": 135,
+      "sha256": "59f3361cc5b251a3f8fb3be28c91494ba194fbd39cc96accff055ab06be3faf7"
+    },
+    "gold_feature_drift": {
+      "rows": 189,
+      "sha256": "b84128594ea924cfba676be7f82bdc814cf7cc3a46c31810fcc4f363b4a7a69e"
+    }
+  }
+}

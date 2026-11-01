@@ -1,0 +1,28 @@
+{
+  "status": "PASS_DIRECT_PYTHON",
+  "counts": {
+    "gold_predictions": 4515,
+    "gold_monitoring_immediate": 9,
+    "gold_monitoring_delayed": 135,
+    "gold_feature_drift": 189
+  },
+  "heldout_metrics": {
+    "n": 1494,
+    "positives": 378,
+    "proxy_rate": 0.25301204819277107,
+    "status": "ok",
+    "pr_auc": 0.3155387753561407,
+    "roc_auc": 0.570565701390074,
+    "precision": 0.48,
+    "recall": 0.06349206349206349,
+    "f1": 0.11214953271028037,
+    "brier": 0.1891160119302743,
+    "tn": 1090,
+    "fp": 26,
+    "fn": 354,
+    "tp": 24
+  },
+  "model_version": "credit_1d49a541123255aa",
+  "champion": "logistic",
+  "note": "Direct output validation is not evidence of Docker or Airflow integration acceptance."
+}

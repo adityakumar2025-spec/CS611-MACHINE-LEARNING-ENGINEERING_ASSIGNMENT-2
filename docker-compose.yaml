@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:16.6-bookworm
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow_local_demo
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_state:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U airflow -d airflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  airflow:
+    build: .
+    image: cs611-task1:local
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/project/dags
+      AIRFLOW__CORE__PARALLELISM: "2"
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_local_demo@postgres/airflow
+      AIRFLOW__WEBSERVER__SECRET_KEY: cs611-local-demo-key-change-for-production
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "false"
+      AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session
+      AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+      AIRFLOW__WEBSERVER__WORKERS: "2"
+    ports:
+      - "127.0.0.1:18080:8080"
+    volumes:
+      - airflow_logs:/opt/airflow/logs
+      - pipeline_work:/opt/project/work
+      - model_bank:/opt/project/model_bank
+      - datamart:/opt/project/datamart
+      - evidence:/opt/project/evidence
+    command: [bash, /opt/project/scripts/start-airflow.sh]
+    healthcheck:
+      test: [CMD-SHELL, "curl --fail --silent http://localhost:8080/health | python -c \"import json,sys; d=json.load(sys.stdin); assert d['metadatabase']['status']=='healthy' and d['scheduler']['status']=='healthy'\""]
+      interval: 20s
+      timeout: 10s
+      start_period: 90s
+      retries: 15
+    restart: unless-stopped
+
+volumes:
+  postgres_state:
+  airflow_logs:
+  pipeline_work:
+  model_bank:
+  datamart:
+  evidence:
