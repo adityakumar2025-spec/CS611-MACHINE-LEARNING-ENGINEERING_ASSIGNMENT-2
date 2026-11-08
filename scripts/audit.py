@@ -4,7 +4,7 @@ import pandas as pd
 
 root = Path(__file__).resolve().parents[1]
 result = {}
-for p in sorted((root / 'inputs').glob('*.csv')):
+for p in sorted((root / 'data').glob('*.csv')):
     d = pd.read_csv(p, low_memory=False)
     key = ['loan_id','snapshot_date'] if 'loan_id' in d else ['Customer_ID','snapshot_date']
     info = dict(rows=len(d), columns=list(d), dtypes=d.dtypes.astype(str).to_dict(),

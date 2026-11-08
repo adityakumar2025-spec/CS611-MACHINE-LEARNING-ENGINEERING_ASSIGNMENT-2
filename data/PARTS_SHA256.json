@@ -1,0 +1,187 @@
+[
+  {
+    "name": "features_attributes.csv.gz.part000",
+    "bytes": 235355,
+    "sha256": "6f0084ca07925ca834bbd4eb0de9360d0436ba9270ff18b3e6135452c9e823ea"
+  },
+  {
+    "name": "features_financials.csv.gz.part000",
+    "bytes": 262144,
+    "sha256": "70eead905ce4c0391be1974eff5d328093fe46dc62c782794cfb397e91029685"
+  },
+  {
+    "name": "features_financials.csv.gz.part001",
+    "bytes": 262144,
+    "sha256": "915a0e75843c5789b94759da31f4d515eb912265026f7baae7fee11985ce25f4"
+  },
+  {
+    "name": "features_financials.csv.gz.part002",
+    "bytes": 262144,
+    "sha256": "29edef4fa6f1bfabec19179d60ee810d5f506a6d4457c071c4b4f0a9cb93994e"
+  },
+  {
+    "name": "features_financials.csv.gz.part003",
+    "bytes": 243923,
+    "sha256": "b8c0c5b0648a2ee565ff7d2e9af8ef9f07ecff5e5f83eeec0053ca716ffe4efa"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part000",
+    "bytes": 262144,
+    "sha256": "7280dc3818e68959d29a366116b9cbdf3d41d115efda01e3391156f8e8dbc3b6"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part001",
+    "bytes": 262144,
+    "sha256": "1635f462e17dc0d17ea1c359fd1c696bdd3ca4db96a8cae061e5508b80f18639"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part002",
+    "bytes": 262144,
+    "sha256": "9c6116460af670e26e972703508bc958a26427efb40fbc009859aff2c16e0862"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part003",
+    "bytes": 262144,
+    "sha256": "13697e4a8bcff0df6ca3e43c6399257cb731b8a1ca26104bcff41d5587f3c350"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part004",
+    "bytes": 262144,
+    "sha256": "ca5cd44e6289b5d88fe393f1666c92706e5e750b72bd8e77968d130557aeaca8"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part005",
+    "bytes": 262144,
+    "sha256": "ced3da2fa95b00cdc5e0eacff2feea75eaa226f9e8c597ebb0148dd77387e28a"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part006",
+    "bytes": 262144,
+    "sha256": "6253a57ef9f06a5c867f535f50abf75883536c1ee4e8507a0ce5beef6e3a5f2b"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part007",
+    "bytes": 262144,
+    "sha256": "e555f41fed83db738de02fddb450e9fe1a2ce34151e68a81b551ac26d2e0f0e5"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part008",
+    "bytes": 262144,
+    "sha256": "85958f8d151cf94dbaefc4cbf7cd076e6775e7bd58561ead64b2a8d529750a27"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part009",
+    "bytes": 262144,
+    "sha256": "46c3d204a107b60e3134490fef179af2bddbc9ef77a88638e22d96f495e4b9b4"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part010",
+    "bytes": 262144,
+    "sha256": "a874aa60dcc371cb39565dc46a7b999200072414dddd2ba9ab07fd9fbd24c400"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part011",
+    "bytes": 262144,
+    "sha256": "900a9e42ea1b5bb3598abb5b75fc16d08942b4688631440f76c8a6fafb44c00b"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part012",
+    "bytes": 262144,
+    "sha256": "d36e1e5d5ca52c8db041cc68852f7aa9c86857bbf56dfd947bfe329a8e67c04d"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part013",
+    "bytes": 262144,
+    "sha256": "e138085d81f828f452266f4f37f787361389d5e70ffdaa31da5c3dcb04124c33"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part014",
+    "bytes": 262144,
+    "sha256": "72f4634fb28310d524bd604e0cc98d5002fe50205555da14636f2f71bbd6a727"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part015",
+    "bytes": 262144,
+    "sha256": "0c7feeae2f22a7c59bf35b8ba4ebb8b2b0576052383f0ad2d542bc1014d92a6f"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part016",
+    "bytes": 262144,
+    "sha256": "75668f0b3d706aa1ce7d2f9520e637ef45b0ff42f3798e31d8d3681ffc57cf62"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part017",
+    "bytes": 262144,
+    "sha256": "e23608f129e1c976ffb701b910102b06ac15d4f6bad62068826d230ea46d7a0b"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part018",
+    "bytes": 262144,
+    "sha256": "15c40e24c5d43a57452d987995c4b4ff49b8f9f894e73eaa77a3d785f0223301"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part019",
+    "bytes": 262144,
+    "sha256": "949d250eaebb57b5744a429c2469b64097a71a0d4e250609751c6d25633b1533"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part020",
+    "bytes": 262144,
+    "sha256": "5d71a43f2a11aa52512c10852115000f2b306b83db4f8dbb18257dcfc1dad80d"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part021",
+    "bytes": 262144,
+    "sha256": "64d97b6af7a940fae28f3eeb4c41da0d18db56ce85ff4ac89017a823a11490a4"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part022",
+    "bytes": 262144,
+    "sha256": "87cb1f138e3b8301402942678f636c29bd87d71977d478727d63c7b7cfac4d36"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part023",
+    "bytes": 262144,
+    "sha256": "8f1fde492fdf6e4badee4f7cb76f2b9c8dcfc049cd0d4d98f70c1195fb192740"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part024",
+    "bytes": 262144,
+    "sha256": "a066d3b4f00fae395d52dbecbd36ac847a8ab9733b29ffc1699570270008b150"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part025",
+    "bytes": 262144,
+    "sha256": "8056eec5f40133b9e3ed915f73dc832f13212fb95b376cd5d40bd39c577c5713"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part026",
+    "bytes": 262144,
+    "sha256": "9cb7c8141e1c8bfbc3e4fd1b4986861425be41954dbca98947224b55942b7aa6"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part027",
+    "bytes": 262144,
+    "sha256": "a3a5c693e74460080f45d0dbb60c86c91a5430198ca589d455e99ce39c692628"
+  },
+  {
+    "name": "feature_clickstream.csv.gz.part028",
+    "bytes": 48457,
+    "sha256": "1e82a4d0ea3f3a75ee8811970a65c54fc3c79c7dc889a77cc2877d6f54f53098"
+  },
+  {
+    "name": "lms_loan_daily.csv.gz.part000",
+    "bytes": 262144,
+    "sha256": "712ccf35734213ce91ad0ccb76da3524bf5843865706ba87727589454306d4a0"
+  },
+  {
+    "name": "lms_loan_daily.csv.gz.part001",
+    "bytes": 262144,
+    "sha256": "fcd728c8d5528475295a4d0c4c654c97fc6ccf4fc7470db1d6300b06468b3b67"
+  },
+  {
+    "name": "lms_loan_daily.csv.gz.part002",
+    "bytes": 201979,
+    "sha256": "cee5211d4a5b1520d4932d64d8a559edb8d1b821d58c46b7d060c555c3872e64"
+  }
+]

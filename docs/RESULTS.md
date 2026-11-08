@@ -36,13 +36,9 @@ an imputed fallback score (ROC-AUC .5). The drift monitor flags the change.
 Earlier cohorts also differ from the early training reference; large PSI calls
 for investigation and does not establish a causal explanation.
 
-19 tests pass. Two full runs and a September 2024 backfill preserve canonical
-hashes for all four gold tables, excluding the intentionally updated publishing
-run identifier. A fresh ZIP Python run regenerates the same data from empty
-model/datamart folders. Docker/Airflow and exact-final-ZIP results are recorded
-separately in evidence/docker_acceptance.json and
-evidence/final_archive_acceptance.json. Clean-extraction Docker build/up, healthy
-UI, all nine DAG tasks, repeat replay, configured historical cohort and actual
-Airflow CLI backfill passed. Artifacts were generated in independent named
-volumes and exported after execution; precomputed sample files were not used
-as a substitute for executing the DAG.
+Current direct verification passes 21 tests, including multi-version monitoring.
+Full repeat and September cohort replay preserve canonical hashes of all four
+gold tables, excluding the intentionally updated publishing run identifier.
+Current Docker/Airflow acceptance must be established by the GitHub workflow
+for the exact tested commit. Earlier Docker reports are preserved under
+evidence/historical and do not establish final-revision acceptance.

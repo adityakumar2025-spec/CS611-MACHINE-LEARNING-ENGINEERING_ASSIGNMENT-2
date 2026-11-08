@@ -1,7 +1,7 @@
 import csv, collections, json
 from pathlib import Path
 result={}
-for p in Path('inputs').glob('*.csv'):
+for p in (Path(__file__).resolve().parents[1] / 'data').glob('*.csv'):
     with p.open(newline='',encoding='utf8') as f:
         rows=list(csv.DictReader(f))
     dates=collections.Counter(r['snapshot_date'] for r in rows)

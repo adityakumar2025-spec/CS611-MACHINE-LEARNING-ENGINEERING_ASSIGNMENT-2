@@ -1,6 +1,9 @@
 """Create a candidate ZIP; enforce true validated label only after all gates."""
 import argparse, hashlib, json, re, zipfile
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from release_identity import identity
 
 
 def build(root,repo_url=None):
@@ -14,13 +17,14 @@ def build(root,repo_url=None):
     readme=(root/'Readme.txt').read_text().splitlines()
     github_ok=len(readme)==1 and bool(re.fullmatch(r'https://github\.com/[^/]+/[^/]+/?',readme[0]))
     docker_path=root/'evidence/docker_acceptance.json'
-    docker_ok=docker_path.exists() and json.loads(docker_path.read_text()).get('status')=='PASS'
+    acceptance=json.loads(docker_path.read_text()) if docker_path.exists() else {}
+    docker_ok=acceptance.get('status')=='PASS' and acceptance.get('release_identity')==identity(root)
     status=dict(status='VALIDATED' if github_ok and docker_ok else 'CANDIDATE_NOT_SUBMISSION_READY',
         github_readme='PASS' if github_ok else 'BLOCKED: real repository URL not supplied',
         docker_airflow='PASS' if docker_ok else 'BLOCKED: clean-extraction Docker/Airflow acceptance not passed',
         direct_python_evidence='evidence/output_validation.json',test_evidence='evidence/pytest.xml')
     (root/'evidence/acceptance_status.json').write_text(json.dumps(status,indent=2))
-    folders=['src','dags','scripts','tests','docs','data','datamart','model_bank','evidence']
+    folders=['src','dags','scripts','tests','docs','data','datamart','model_bank','evidence','.github']
     top=['Dockerfile','docker-compose.yaml','requirements.txt','README.md','Readme.txt','pytest.ini','.dockerignore','.gitignore','.gitattributes']
     files=[root/f for f in top]
     for folder in folders:

@@ -1,0 +1,66 @@
+name: Clean-clone acceptance
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: acceptance-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  examiner:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      MPLBACKEND: Agg
+      COMPOSE_PROJECT_NAME: cs611-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Record exact revision and resources
+        run: |
+          git rev-parse HEAD | tee evidence/tested_commit.txt
+          free -h
+          df -h
+          docker compose version
+      - name: Install and check dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip check
+          python -m compileall -q src dags scripts tests
+      - name: Generate fresh outputs
+        run: |
+          python scripts/bootstrap_data.py
+          python -m src.pipeline --run-id ci-direct > evidence/ci_direct.log 2>&1
+      - name: Tests including model-history regression
+        run: python -m pytest -q --junitxml=evidence/ci_pytest.xml
+      - name: Docker Airflow full repeat and backfill acceptance
+        run: python scripts/docker_acceptance.py
+      - name: Package and check archive
+        run: |
+          python scripts/package.py
+          python -c "import zipfile; from pathlib import Path; z=zipfile.ZipFile(next(Path('dist').glob('*VALIDATED.zip'))); assert z.testzip() is None; assert 'data/lms_loan_daily.csv' in z.namelist(); z.extractall('acceptance_extract/final')"
+      - name: Exact archive Docker acceptance
+        run: |
+          export COMPOSE_PROJECT_NAME=cs611-archive-${{ github.run_id }}-${{ github.run_attempt }}
+          python acceptance_extract/final/scripts/docker_acceptance.py --root acceptance_extract/final
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: acceptance-${{ github.sha }}
+          path: |
+            evidence/
+            generated-evidence/
+            generated-datamart/
+            generated-model_bank/
+            dist/
+            acceptance_extract/final/evidence/
+          retention-days: 30

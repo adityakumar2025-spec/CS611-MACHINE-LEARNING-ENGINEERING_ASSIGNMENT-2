@@ -8,6 +8,8 @@ COPY --chown=airflow:0 src /opt/project/src
 COPY --chown=airflow:0 dags /opt/project/dags
 COPY --chown=airflow:0 scripts/start-airflow.sh /opt/project/scripts/start-airflow.sh
 COPY --chown=airflow:0 data /opt/project/data
+COPY --chown=airflow:0 scripts/bootstrap_data.py /opt/project/scripts/bootstrap_data.py
+RUN python /opt/project/scripts/bootstrap_data.py
 RUN mkdir -p /opt/project/work /opt/project/model_bank /opt/project/datamart /opt/project/evidence \
     && chmod +x /opt/project/scripts/start-airflow.sh
 ENV PROJECT_ROOT=/opt/project PYTHONPATH=/opt/project \

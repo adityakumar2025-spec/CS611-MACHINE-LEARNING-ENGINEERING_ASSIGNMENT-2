@@ -2,8 +2,9 @@
 __pycache__/
 .pytest_cache/
 inputs/
-data/
-datamart/
+data/*.csv
+datamart/*
+!datamart/.gitkeep
 model_bank/
 work/
 dist/

@@ -51,7 +51,7 @@ def paths(root=ROOT):
 
 
 def input_paths(root):
-    folder = root / 'data' if (root / 'data/lms_loan_daily.csv').exists() else root / 'inputs'
+    folder = root / 'data' if (root / 'data').is_dir() else root / 'inputs'
     found = {}
     for name in ['lms_loan_daily', 'feature_clickstream', 'features_attributes', 'features_financials']:
         candidates = [p for p in folder.glob(f'{name}*.csv')]
@@ -395,7 +395,10 @@ def compute_monitoring(root=ROOT, **kwargs):
     final_asof=last_snapshot+pd.Timedelta(days=1)
     snapshots=list(pd.date_range(AVAILABLE,final_asof,freq='M'))+[final_asof]
     for (cohort,version),g in joined.groupby(['application_cohort','model_version']):
-        _,meta,folder=load_champion(root,pd.Timestamp(cohort))
+        folder=root/'model_bank'/version
+        meta=json.loads((folder/'metadata.json').read_text())
+        if meta['version'] != version or meta['policy'] != POLICY:
+            raise ValueError('Historical monitoring model mismatch')
         ref=pd.read_pickle(folder/'reference.pkl')
         key=dict(application_cohort=cohort,model_version=version)
         score_psi=psi(ref.score,g.probability)
@@ -481,9 +484,10 @@ def draw_charts(root):
         labels=['Mature outcomes','Pending six-month horizon + ingestion lag'],colors=['#16a34a','#cbd5e1'])
     ax.set_title('Outcome availability in historical monitoring snapshots');ax.set_ylabel('Scored loans');ax.legend(loc='upper left')
     fig.autofmt_xdate();fig.tight_layout();fig.savefig(root/'datamart/charts/maturity.png',dpi=150);plt.close(fig)
-    matrix=drift.pivot(index='feature',columns='application_cohort',values='psi').reindex(FEATURES)
+    # Keep model history: each version/cohort gets its own column.
+    matrix=drift.pivot(index='feature',columns=['model_version','application_cohort'],values='psi').reindex(FEATURES)
     fig,ax=plt.subplots(figsize=(12,8));im=ax.imshow(matrix.values,aspect='auto',cmap='YlOrRd',vmin=0,vmax=max(.25,float(matrix.max().max())))
-    ax.set_xticks(range(len(matrix.columns)),[s[:7] for s in matrix.columns],rotation=45,ha='right')
+    ax.set_xticks(range(len(matrix.columns)),[f'{cohort[:7]}\n{version[-6:]}' for version,cohort in matrix.columns],rotation=45,ha='right')
     ax.set_yticks(range(len(matrix.index)),matrix.index);ax.set_title('Input drift vs training reference (PSI)')
     fig.colorbar(im,ax=ax,label='PSI');fig.tight_layout();fig.savefig(root/'datamart/charts/feature_drift.png',dpi=150);plt.close(fig)
 
@@ -495,6 +499,15 @@ def validate_outputs(root=ROOT, **kwargs):
         delayed=pd.read_sql_query('SELECT * FROM gold_monitoring_delayed',con)
         counts={table:con.execute(f'SELECT COUNT(*) FROM {table}').fetchone()[0] for table in
             ['gold_predictions','gold_monitoring_immediate','gold_monitoring_delayed','gold_feature_drift']}
+        for table,keys in [
+            ('gold_predictions',['loan_id','model_version','scoring_date']),
+            ('gold_monitoring_immediate',['application_cohort','model_version']),
+            ('gold_monitoring_delayed',['application_cohort','model_version','monitoring_asof']),
+            ('gold_feature_drift',['application_cohort','model_version','feature'])]:
+            rows=pd.read_sql_query(f'SELECT * FROM {table}',con)
+            assert not rows[keys].isna().any().any(),f'Null key: {table}'
+            assert not rows.duplicated(keys).any(),f'Duplicate key: {table}'
+        assert con.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
     assert len(pred)>0 and not pred.duplicated(['loan_id','model_version','scoring_date']).any()
     assert pred.probability.between(0,1).all() and pred.probability.notna().all()
     assert (pd.to_datetime(pred.information_cutoff)<pd.to_datetime(pred.scoring_date)).all()
