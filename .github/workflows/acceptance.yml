@@ -41,7 +41,9 @@ jobs:
           python scripts/bootstrap_data.py
           python -m src.pipeline --run-id ci-direct > evidence/ci_direct.log 2>&1
       - name: Tests including model-history regression
-        run: python -m pytest -q --junitxml=evidence/ci_pytest.xml
+        run: |
+          set -o pipefail
+          python -m pytest -q --junitxml=evidence/pytest.xml | tee evidence/test_results.txt
       - name: Docker Airflow full repeat and backfill acceptance
         run: python scripts/docker_acceptance.py
       - name: Package and check archive
