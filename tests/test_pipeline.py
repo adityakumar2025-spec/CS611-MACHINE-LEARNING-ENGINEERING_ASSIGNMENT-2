@@ -25,11 +25,54 @@ def features(raw):
 def test_original_hashes_and_schemas(raw):
     p.validate_frames(raw)
     import hashlib
+    expected=json.loads((p.ROOT/'data/SHA256.json').read_text())
     for name,path in p.input_paths(p.ROOT).items():
+        assert hashlib.sha256(path.read_bytes()).hexdigest()==expected[path.name]
         original=p.ROOT/'inputs'/path.name
         if original.exists():
             assert hashlib.sha256(path.read_bytes()).digest()==hashlib.sha256(original.read_bytes()).digest()
     assert len(raw['lms_loan_daily'])==137500
+
+
+def test_missing_and_ambiguous_inputs(tmp_path):
+    (tmp_path/'data').mkdir()
+    with pytest.raises(ValueError,match='exactly one'):
+        p.input_paths(tmp_path)
+    for source in (p.ROOT/'data').glob('*.csv'):
+        shutil.copy2(source,tmp_path/'data'/source.name)
+    shutil.copy2(tmp_path/'data/lms_loan_daily.csv',tmp_path/'data/lms_loan_daily(1).csv')
+    with pytest.raises(ValueError,match='exactly one'):
+        p.input_paths(tmp_path)
+
+
+@pytest.mark.integration
+def test_monitoring_preserves_multiple_model_versions(tmp_path):
+    p.paths(tmp_path)
+    shutil.copytree(p.ROOT/'model_bank',tmp_path/'model_bank',dirs_exist_ok=True)
+    shutil.copytree(p.ROOT/'data',tmp_path/'data')
+    shutil.copy2(p.ROOT/'work/features.pkl',tmp_path/'work/features.pkl')
+    reg=json.loads((tmp_path/'model_bank/registry.json').read_text())
+    original=reg['version']; alternate='credit_regression_history'
+    shutil.copytree(tmp_path/'model_bank'/original,tmp_path/'model_bank'/alternate)
+    meta_path=tmp_path/'model_bank'/alternate/'metadata.json'
+    meta=json.loads(meta_path.read_text());meta['version']=alternate
+    meta_path.write_text(json.dumps(meta))
+    ref_path=tmp_path/'model_bank'/alternate/'reference.pkl'
+    ref=pd.read_pickle(ref_path);ref['score']=0.99;ref.to_pickle(ref_path)
+    with sqlite3.connect(p.ROOT/'datamart/gold.sqlite') as con:
+        pred=pd.read_sql_query('SELECT * FROM gold_predictions',con)
+    old=pred.copy();old['model_version']=alternate
+    p.upsert(tmp_path,'gold_predictions',pd.concat([pred,old]),['loan_id','model_version','scoring_date'])
+    p.compute_monitoring(tmp_path)
+    immediate=pd.read_pickle(tmp_path/'work/immediate.pkl')
+    a=immediate[immediate.model_version==original].sort_values('application_cohort')
+    b=immediate[immediate.model_version==alternate].sort_values('application_cohort')
+    assert not np.allclose(a.score_psi,b.score_psi)
+    first=p.publish_monitoring(tmp_path)
+    assert first==p.publish_monitoring(tmp_path)
+    assert first['gold_feature_drift']==378
+    with sqlite3.connect(tmp_path/'datamart/gold.sqlite') as con:
+        assert con.execute('SELECT COUNT(DISTINCT model_version) FROM gold_feature_drift').fetchone()[0]==2
 
 
 def test_duplicate_contract_rejected(raw):

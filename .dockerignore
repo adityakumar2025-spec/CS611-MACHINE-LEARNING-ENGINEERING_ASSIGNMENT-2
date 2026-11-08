@@ -7,6 +7,10 @@
 !dags/**
 !scripts/
 !scripts/start-airflow.sh
+!scripts/bootstrap_data.py
 !data/
 !data/*.csv
+!data/SHA256.json
+!data/parts/
+!data/parts/**
 **/__pycache__/

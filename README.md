@@ -1,95 +1,122 @@
 # CS611 Assignment 2 - Task 1
 
-Run from the extracted project root with Docker Desktop running Linux containers:
+This project trains and compares Logistic Regression and histogram gradient
+boosting, registers the selected fitted pipeline, replays nine monthly loan
+cohorts, and publishes predictions, immediate stability monitoring, delayed
+performance monitoring and four charts. Airflow runs nine serial tasks;
+PostgreSQL stores Airflow metadata and SQLite/CSV store the gold datamart.
+This is historical replay of a six-month severe-arrears amount proxy.
+
+## Run from a clean clone
+
+Prerequisites: Git, Docker with Linux containers, Docker Compose v2 or later,
+internet for image/package downloads, at least 4 GB Docker RAM (6 GB recommended),
+and 10 GB free disk space. Python on the host is optional for Docker execution.
 
 ```bash
-docker-compose build
-docker-compose up
+git clone https://github.com/adityakumar2025-spec/CS611-MACHINE-LEARNING-ENGINEERING_ASSIGNMENT-2.git
+cd CS611-MACHINE-LEARNING-ENGINEERING_ASSIGNMENT-2
+docker compose build
+docker compose up -d
+docker compose ps
+docker compose logs -f airflow
 ```
 
-Open http://localhost:18080 after the health check becomes healthy. Login:
-`lecturer` / `lecturer`. The startup log prints this URL. Allow several minutes
-for first image download, database migration and DAG discovery. The demo uses
-two services: PostgreSQL metadata and Airflow scheduler/webserver. Allocate at
-least 4 GB Docker RAM; 6 GB is recommended. Internet is needed to build images.
-Both Compose v2's `docker-compose` compatibility executable and `docker compose`
-accept the provided file; install a compatibility executable if your system
-ships only the latter. Actual availability must be checked on the grading host.
+All original input bytes are included in data/parts as gzip parts. Docker
+reconstructs the four CSVs automatically and verifies data/SHA256.json. No
+download, private account or files from the submitter's laptop are needed.
+The data submitter confirmed public redistribution; see data/PROVENANCE.md.
+The assignment's `docker-compose build` / `docker-compose up` spelling also
+works where that compatibility executable is installed; the supported commands
+above use Docker's current Compose plugin.
 
-In Airflow find **cs611_task1**, turn its pause toggle off, and click Trigger DAG.
-Leave `cohort` null for the full nine-cohort historical replay. Wait for all nine
-tasks to succeed. The optional cohort is a month-start from May 2024-Jan 2025.
-This is an assignment replay, not live credit decision software.
-
-CLI equivalents, from another terminal:
+Open http://localhost:18080 when healthy. Sign in with **lecturer / lecturer**.
+Find **cs611_task1**, unpause it, click **Trigger DAG**, leave `cohort` null, then
+wait for all nine tasks in Grid to turn green. Open individual tasks and Logs
+to inspect execution. First build/start can take several minutes.
 
 ```bash
-docker-compose exec airflow airflow dags list-import-errors
-docker-compose exec airflow airflow dags unpause cs611_task1
-docker-compose exec airflow airflow dags trigger cs611_task1
-docker-compose exec airflow airflow dags list-runs -d cs611_task1
-docker-compose exec airflow airflow dags trigger cs611_task1 --conf '{"cohort":"2024-09-01"}'
-docker-compose exec airflow airflow dags backfill cs611_task1 -s 2024-09-01 -e 2024-09-01
+docker compose exec airflow airflow dags list-import-errors
+docker compose exec airflow airflow dags unpause cs611_task1
+docker compose exec airflow airflow dags trigger cs611_task1
+docker compose exec airflow airflow dags list-runs -d cs611_task1
 ```
 
-For PowerShell, the UI trigger or `scripts/docker_acceptance.py` avoids shell
-JSON quoting differences. CLI backfills derive the cohort from the historical
-logical date. A normal manual trigger replays all cohorts unless `cohort` is set.
-Scoring is bounded to the supplied historical cohorts. The DAG is paused by
-default; its monthly schedule replays the supplied extract. Pause it after review
-if leaving the services running. Manual triggers at the current date run all
-nine tasks; no task end-date silently excludes current manual runs.
+Trigger again with null cohort to verify a full repeat. For a cohort replay,
+use Trigger DAG's configuration `{"cohort":"2024-09-01"}` in the UI.
+CLI historical backfill is also supported:
 
-Outputs inside the Airflow container persist across restarts in named volumes:
+```bash
+docker compose exec airflow airflow dags backfill cs611_task1 -s 2024-09-01 -e 2024-09-01
+```
 
-| Path | Contents |
+## Inspect and export results
+
+| Container path | Output |
 |---|---|
-| /opt/project/model_bank | Registry, fitted full pipeline, reference data, model metadata |
-| /opt/project/datamart/gold.sqlite | Four gold tables with unique indexes |
-| /opt/project/datamart/gold_*.csv | Reviewable mirrors of gold tables |
+| /opt/project/model_bank | Registry, versioned pipeline.joblib, reference.pkl, metadata.json |
+| /opt/project/datamart/gold.sqlite | Four gold tables with unique business keys |
+| /opt/project/datamart/gold_*.csv | CSV mirrors |
 | /opt/project/datamart/charts | stability.png, performance.png, maturity.png, feature_drift.png |
-| /opt/project/evidence | Runtime contracts, comparison, counts, output validation |
+| /opt/project/evidence | Input contracts, candidate metrics, output validation |
 | /opt/airflow/logs | Task logs |
 
-Export generated outputs to the host without requiring bind-mount permissions:
+Expected fresh-run counts are 4,515 predictions, 9 immediate rows, 135 delayed
+rows and 189 feature drift rows. The selected model is Logistic Regression.
+The repository's datamart/ starts empty; outputs are generated by the DAG.
 
 ```bash
-docker-compose cp airflow:/opt/project/datamart ./generated-datamart
-docker-compose cp airflow:/opt/project/model_bank ./generated-model-bank
-docker-compose cp airflow:/opt/project/evidence ./generated-evidence
+docker compose cp airflow:/opt/project/datamart ./generated-datamart
+docker compose cp airflow:/opt/project/model_bank ./generated-model-bank
+docker compose cp airflow:/opt/project/evidence ./generated-evidence
+docker compose down
 ```
 
-The supplied `datamart/` and `model_bank/` contain executed direct-Python sample
-results. Docker named volumes start independently and the DAG must generate its
-own results. `docker-compose down` retains state. Avoid `down -v` unless you
-intend to delete this Compose project's generated data and Airflow history.
+Named volumes retain results and Airflow history. Reruns upsert business keys;
+the latest publishing run ID updates while probabilities remain identical.
+Model versions remain separate and use their own monitoring references.
+Do not run concurrent direct Python writers against the same output directory.
+`docker compose down -v` deletes this project's volumes; use only for an
+intentional reset. Pause the DAG after examination if leaving services running.
 
-For a local Python check (Python 3.12):
+## Tests and acceptance
+
+For direct execution install Python 3.12, create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
-# Activate .venv using your operating system's activation command.
+# Activate .venv: source .venv/bin/activate (Linux/macOS)
+# or .venv\Scripts\Activate.ps1 (PowerShell).
 python -m pip install -r requirements.txt
+python scripts/bootstrap_data.py
 python -m src.pipeline --run-id local-review
-python -m pytest -q
+python -m pytest -q --junitxml=evidence/current_pytest.xml
+python -m src.pipeline --run-id repeat-review
 python -m src.pipeline --run-id backfill-review --cohort 2024-09-01
 ```
 
-These commands use relative paths. No private credentials, local interpreter or
-developer absolute paths are required in the ZIP. Input discovery also accepts
-the originally expected `(1)` filename suffixes in inputs/.
+`python scripts/docker_acceptance.py` builds Docker, checks UI and imports,
+waits for all nine tasks in full/repeat/cohort runs, runs CLI backfill, compares
+prediction fingerprints, validates outputs and exports artifacts. Run in a
+fresh checkout with a unique COMPOSE_PROJECT_NAME and no service on port 18080.
+It stops its own services and preserves volumes. The GitHub Actions workflow
+runs dependency checks, direct tests, Docker/Airflow acceptance and acceptance
+of the exact extracted ZIP. Download its artifacts for actual logs and results.
 
-Read [the audit](docs/DATA_AUDIT.md), [temporal policy](docs/TEMPORAL_POLICY.md),
-[architecture](docs/ARCHITECTURE.md), [governance/SOP](docs/GOVERNANCE.md), and
-[requirements evidence](docs/REQUIREMENTS.md). The predicted target is a
-**six-month severe-arrears amount proxy**, not contractual default. Same-day
-attributes/financials are excluded. Later clickstream coverage is absent;
-monitoring must expose that failure. Threshold 0.5 is illustrative and can have
-very low recall. No claim of production suitability is made.
+Current evidence is distinguished from preserved historical evidence in
+docs/VALIDATION.md. A historical PASS is never proof of this revision.
+Packaging binds acceptance to a content hash, so stale evidence cannot label
+changed code VALIDATED. Readme.txt is deliberately just one repository URL line.
 
-See evidence/acceptance_status.json and docs/PROGRESS.md for actual acceptance
-status. Docker/Airflow success must be established from clean ZIP extraction;
-direct Python success does not establish those gates. The verified one-line
-GitHub repository URL is in Readme.txt. Raw datasets and customer-level outputs
-are intentionally excluded from the public repository. The local submission ZIP
-includes all four CSVs under data/ and can build independently.
+## Scientific limitations
+
+Same-day attributes/financials are excluded because their pre-decision
+availability is unresolved. Prior-month clickstream and one-day label ingestion
+lag are explicit assumptions. Training labels mature before validation origins;
+preprocessing fits only training data. Later borrowers lack clickstream coverage;
+monitoring exposes this incident and scores can collapse to a constant.
+The fixed 0.5 threshold has low recall. This does not establish production
+creditworthiness, fairness or contractual default prediction.
+
+See docs/TEMPORAL_POLICY.md, docs/DATA_AUDIT.md, docs/ARCHITECTURE.md and
+docs/GOVERNANCE.md for the scientific policy and proposed governance SOP.

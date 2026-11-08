@@ -1,8 +1,9 @@
 # Dataset forensic audit
 
-Machine-readable evidence: dataset_audit.json, input_contract.json,
-feature_contract.json and raw_summary.json under evidence/. Original inputs are
-unchanged; data/ is a byte-for-byte copy for the submission's required layout.
+Historical dataset_audit.json and raw_summary.json are preserved under
+evidence/historical/. Current runs generate input_contract.json and
+feature_contract.json under evidence/ (also exported by CI). Original CSV bytes
+are unchanged; data/parts reconstructs them with checksums for the required layout.
 
 | Source | Rows | Customers | Key | Observed dates |
 |---|---:|---:|---|---|

@@ -1,0 +1,182 @@
+{
+  ".dockerignore": {
+    "zip_sha256": "764bb932dbd9142cc73a0b8ad239d0c2669b06275b6052e81d3fd2ecd310a603",
+    "repository_sha256": "070714222681d14bb247caa9240754c51cc616ed5616096d39f3d0f6cc6e039b",
+    "category": "source_or_documentation"
+  },
+  ".gitattributes": {
+    "zip_sha256": "eaa2d4b8af96383caf772931578e6cf825fd94b4d5ddb2d4acf0b64945750c93",
+    "repository_sha256": "2404f67b7cfe259bc94a61b144dea5259f2edbc83164d9601fb8f5e2606f76ee",
+    "category": "source_or_documentation"
+  },
+  "dags/cs611_task1.py": {
+    "zip_sha256": "5ae10be46c970b93ee4d447fb57819625128dc5b7056a07f83176559b552b760",
+    "repository_sha256": "5ae10be46c970b93ee4d447fb57819625128dc5b7056a07f83176559b552b760",
+    "category": "source_or_documentation"
+  },
+  "data/feature_clickstream.csv": {
+    "zip_sha256": "537508734e29aa9a879dc29420768b1e24dd02a0399d880a8598c55057d7dcb0",
+    "repository_sha256": null,
+    "category": "input"
+  },
+  "data/features_attributes.csv": {
+    "zip_sha256": "c86b93f1bb3a73e1c9c8617a2bd34cdf12165bb9c4d6857387bf1b6f19f05648",
+    "repository_sha256": null,
+    "category": "input"
+  },
+  "data/features_financials.csv": {
+    "zip_sha256": "3f35cd2ac4fa0d84f16bad62cbf51b5ace48f7ff519f94c9882987ea0496ed3a",
+    "repository_sha256": null,
+    "category": "input"
+  },
+  "data/lms_loan_daily.csv": {
+    "zip_sha256": "a6e8f5aae5e994c61e07db15082c733712827ad96931a4bcb2d167629491b651",
+    "repository_sha256": null,
+    "category": "input"
+  },
+  "datamart/charts/feature_drift.png": {
+    "zip_sha256": "1de637248690284313aa8a6e84707069be52bec1357fb1dce1ead311d6c3cd92",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/charts/maturity.png": {
+    "zip_sha256": "bc606f8a843323ccbf96b19e5fc27853852383ff64c6be3f12e8afec2ec9f47d",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/charts/performance.png": {
+    "zip_sha256": "4cd77504ef042befc963c5aaa9340ffb260b85e9a4d21dd9f2e8b55d5e5def16",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/charts/stability.png": {
+    "zip_sha256": "fa309154e4b9fe0180b4ffb39417dc1c63a6e246c0e48a9609f872d56a4d6452",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/gold.sqlite": {
+    "zip_sha256": "0c33aafc2e250887a18edc2083f11a608fb693d02e197ec1949d11907bafce12",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/gold_feature_drift.csv": {
+    "zip_sha256": "6407e91c22d25c10840ec9c53e771a01e020457e4d2bf1483618c0ccc642df5f",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/gold_monitoring_delayed.csv": {
+    "zip_sha256": "11e0ab04641586b5ffb680217d67ba5d9215a063877533b9aadbe541c6210fe9",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/gold_monitoring_immediate.csv": {
+    "zip_sha256": "0b8556e0e18d9d60bbbe3aa96ab104d9fa3baf705e4898ce522bfeb6997aae34",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "datamart/gold_predictions.csv": {
+    "zip_sha256": "e4c32bfeb2929332d15e3e3babc1deb8d189197200c88b8017f4411b6bfdbd8e",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "docker-compose.yaml": {
+    "zip_sha256": "58010cd67f9be7fff38bb98e735305cf86c9f5886ac0fa0e4dd556b6b568a323",
+    "repository_sha256": "58010cd67f9be7fff38bb98e735305cf86c9f5886ac0fa0e4dd556b6b568a323",
+    "category": "source_or_documentation"
+  },
+  "Dockerfile": {
+    "zip_sha256": "cbd7139364935cdb89c298f616c80539d3271a65c54f481140ded386c9e3793f",
+    "repository_sha256": "cbd7139364935cdb89c298f616c80539d3271a65c54f481140ded386c9e3793f",
+    "category": "source_or_documentation"
+  },
+  "docs/ARCHITECTURE.md": {
+    "zip_sha256": "566c6fee48b3e8a618bd4589c105a4876eb0c6a58e540083459baa6caf0a88a3",
+    "repository_sha256": "f81a6c975c233f7fc2d79899ed54191307addc0d501dda891f5197690b69d109",
+    "category": "source_or_documentation"
+  },
+  "docs/DATA_AUDIT.md": {
+    "zip_sha256": "019feba826e0f1e0a12f81b164cc892c8cfbd832c102d4d10b3510449fca9091",
+    "repository_sha256": "b271969114427f073b0645f59fe6eab84c4242ea3e73a967c9f9b2d74e6f8014",
+    "category": "source_or_documentation"
+  },
+  "docs/GOVERNANCE.md": {
+    "zip_sha256": "d95f0ec0dc8800dba250e3716235e7968e83e0cbeb0192cc6bdb498ecf9f843f",
+    "repository_sha256": "c5bc6d4f36875b3ce6ade7e5b9404fb2a8c66053bb771e6814fb534637def1fd",
+    "category": "source_or_documentation"
+  },
+  "docs/RESULTS.md": {
+    "zip_sha256": "343bc005ba057b835cb3dc2db9e2e4765e1967c7cd094d0f176e70926c9d5b30",
+    "repository_sha256": "411bb677652660ebd355aaed177cf2980fff5a910d3fe0dbe6663beef71e32b2",
+    "category": "source_or_documentation"
+  },
+  "docs/TEMPORAL_POLICY.md": {
+    "zip_sha256": "da87c24af28c23ed4c26fa676fb607c8d947940878ad014e83b8cfceb2ff337b",
+    "repository_sha256": "1375ae187919f22e6cf56336fb1f57d15fb2fe0d30c207a64d14417066bb5396",
+    "category": "source_or_documentation"
+  },
+  "docs/VALIDATION.md": {
+    "zip_sha256": "04fbab0b98e4b5ece69234b9367c4fe69dab9feed4d8573440b32654e2e7e3d0",
+    "repository_sha256": "8d6ab32df49c64cf517e0001782f95d8d340d6ec5a2b9545465462678844c353",
+    "category": "source_or_documentation"
+  },
+  "model_bank/credit_1d49a541123255aa/metadata.json": {
+    "zip_sha256": "76e4fe3a3a0a7a183cfae76ca64ff45019527a49c23e581585d687904d68ee4c",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "model_bank/credit_1d49a541123255aa/pipeline.joblib": {
+    "zip_sha256": "ceb83612b9adcedefca3d3f10055984a53d497a6b0af57b4be8c0bf278b2aa64",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "model_bank/credit_1d49a541123255aa/reference.pkl": {
+    "zip_sha256": "d4a86056cc72906e31a9b4ad971b6fb4dae6adedaa4e7a97982f209ac30357e3",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "model_bank/registry.json": {
+    "zip_sha256": "35d3fa94f4c17c3ae50ad069941927091b2f4e5470512265b4b26a40de76920f",
+    "repository_sha256": null,
+    "category": "generated"
+  },
+  "pytest.ini": {
+    "zip_sha256": "b8f42396c0bc57d21e1d1f7e5f9b57c9c10ee77fd2134650da5d1b2aa19ba3e1",
+    "repository_sha256": "16197393c221ccd7f5232b278b8c9a6dafb21c62d022b50f510a629fa1b5855b",
+    "category": "source_or_documentation"
+  },
+  "Readme.txt": {
+    "zip_sha256": "8644e4cb1f0fd3e98da05a4c2b4badb9ae95c580b968e73305c1e4bfa203ab41",
+    "repository_sha256": "5e591e3966fe549f976cd39e2c4d86e065ce0c6435b477f2816dc4b7d8c5f9a3",
+    "category": "source_or_documentation"
+  },
+  "requirements.txt": {
+    "zip_sha256": "050a922cdec521b30ac73f0a8b1e5cf4b35614a3f5083236bf14679b55d921ba",
+    "repository_sha256": "ff9153c72c32cf03b63a5adc3595423d4eff0e440ccc9ec35d2ebb8bb44c1033",
+    "category": "source_or_documentation"
+  },
+  "RUN_INSTRUCTIONS.md": {
+    "zip_sha256": "62bb7bf41e688462d3ce0030dba7fd3d94f09c848358d6b447011b3e4beb8db8",
+    "repository_sha256": null,
+    "category": "source_or_documentation"
+  },
+  "scripts/start-airflow.sh": {
+    "zip_sha256": "6e3025744d5326556e8aae2f0566ae99eac98708bc9e883a0591b8e0fd0199de",
+    "repository_sha256": "6e3025744d5326556e8aae2f0566ae99eac98708bc9e883a0591b8e0fd0199de",
+    "category": "source_or_documentation"
+  },
+  "src/__init__.py": {
+    "zip_sha256": "90c2180dd88bec985366c7c1e7f8e9d1d8614c77801b27cb2c400fb81913acfa",
+    "repository_sha256": "90c2180dd88bec985366c7c1e7f8e9d1d8614c77801b27cb2c400fb81913acfa",
+    "category": "source_or_documentation"
+  },
+  "src/pipeline.py": {
+    "zip_sha256": "415bb30b258c151fc85d3013996577f3ecd1f9f05826dc91c8f038a56f197284",
+    "repository_sha256": "415bb30b258c151fc85d3013996577f3ecd1f9f05826dc91c8f038a56f197284",
+    "category": "source_or_documentation"
+  },
+  "tests/test_pipeline.py": {
+    "zip_sha256": "163420e233d9bbd2d53cc2a1c2ab95a63560df87d1f0474414666ffe5f58b238",
+    "repository_sha256": "163420e233d9bbd2d53cc2a1c2ab95a63560df87d1f0474414666ffe5f58b238",
+    "category": "source_or_documentation"
+  }
+}
