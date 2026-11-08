@@ -4,13 +4,17 @@ Original repository baseline: 9763c04da2fbfa8183c60091c98a23369990e7d2.
 The evidence/historical directory preserves earlier records unchanged. They
 apply to earlier local/ZIP executions, not the final GitHub revision.
 
-Current direct execution and pytest records have the finalization_ prefix.
 Fresh GitHub Actions evidence is published as a workflow artifact keyed to the
 tested Git SHA. It includes the exact commit, dependency checks, full/repeat/
 cohort/CLI backfill task states, Docker logs and output exports. Each acceptance
 record also binds a release_identity hash to code, configuration, documentation
 and immutable data parts. Check the run conclusion and tested SHA before relying
 on a PASS. A failed or unavailable runtime is an unpassed acceptance gate.
+
+Current artifact files include evidence/pytest.xml, evidence/test_results.txt,
+evidence/ci_direct.log, evidence/docker_acceptance.json and the extracted
+archive's separate acceptance record under acceptance_extract/final/evidence/.
+Historical local finalization records are not substitutes for the current run.
 
 Run python scripts/bootstrap_data.py for local Python use. Docker performs the
 same step automatically. All four reconstructed files must match data/SHA256.json.

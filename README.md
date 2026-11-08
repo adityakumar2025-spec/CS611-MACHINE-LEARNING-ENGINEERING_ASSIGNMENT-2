@@ -84,6 +84,9 @@ intentional reset. Pause the DAG after examination if leaving services running.
 For direct execution install Python 3.12, create and activate a virtual environment:
 
 ```bash
+python -m venv .venv
+# Activate .venv: source .venv/bin/activate (Linux/macOS)
+# or .venv\Scripts\Activate.ps1 (PowerShell).
 python -m pip install -r requirements.txt
 python scripts/bootstrap_data.py
 python -m src.pipeline --run-id local-review
